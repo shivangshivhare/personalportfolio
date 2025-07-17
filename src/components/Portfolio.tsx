@@ -46,7 +46,7 @@ const Projects: React.FC = () => {
   category: 'Full-Stack Web App',
   description:
     'ZaikaMap is a smart and simple restaurant recommender to help users discover the best places to eat nearby. Built for food lovers across India with real-time filtering and Google Maps integration.',
-  image: '/src/assets/zaykamap.jpg', // Or replace with your custom image
+  image: '../assets/zaykamap.jpg', // Or replace with your custom image
   technologies: ['Next.js', 'Tailwind CSS', 'Google Maps API', 'Gemini API', 'TypeScript'],
   link: 'https://zaikamap.vercel.app/',
   github: 'https://github.com/shivangshivhare/ZaikaMap',
@@ -57,7 +57,7 @@ const Projects: React.FC = () => {
       title: 'Traffic Violation Detection System',
       category: 'Computer Vision',
       description: 'OpenCV-based system for detecting traffic violations in real time with dashboard reports and auto-notification for law enforcement.',
-      image: '/src/assets/trafficCS.jpg',
+      image: '../assets/trafficCS.jpg',
       technologies: ['Python', 'OpenCV', 'Flask', 'Real-Time Alerts'],
       link: 'https://github.com/shivangshivhare/traffic-violation-control-system',
       github: 'https://github.com/shivangshivhare/traffic-violation-control-system',
@@ -68,7 +68,7 @@ const Projects: React.FC = () => {
       title: 'TechInspiree',
       category: 'Knowledge Sharing Platform',
       description: 'AI-driven platform for students to share educational content with plagiarism checks, real-time collaboration, and personalized recommendations.',
-      image: '/src/assets/techinspire.jpg',
+      image: '../assets/techinspire.jpg',
       technologies: ['Next.js', 'MongoDB', 'Express.js', 'Tailwind', 'Node.js'],
       link: 'https://techinspire.vercel.app/',
       github: 'https://github.com/shivangshivhare/techinspiree',
