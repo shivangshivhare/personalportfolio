@@ -5,6 +5,7 @@ import { Mail, MapPin, Send, Github, Linkedin, ExternalLink } from 'lucide-react
 
 const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -55,19 +56,16 @@ const Contact: React.FC = () => {
       repeat: 1
     });
 
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+    data.append('_captcha', 'false');
+    data.append('_template', 'table');
+    data.append('_subject', `Portfolio Contact: ${formData.subject}`);
+
     try {
       const response = await fetch("https://formsubmit.co/el/mazilo", {
         method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          ...formData,
-          _subject: `Portfolio Contact: ${formData.subject}`,
-          _captcha: "false",
-          _template: "table"
-        })
+        body: data
       });
 
       if (response.ok) {
@@ -97,7 +95,7 @@ const Contact: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Left Side: Contact Info & Socials */}
+          {/* Contact Info and Socials */}
           <div className="space-y-8">
             <div className="contact-content">
               <h3 className="text-3xl font-semibold mb-6">Get in Touch</h3>
@@ -130,26 +128,24 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Social Links */}
             <div className="contact-content">
               <h4 className="text-xl font-semibold mb-4">Connect with me</h4>
               <div className="flex space-x-4">
                 <a href="https://github.com/shivangshivhare" target="_blank" rel="noopener noreferrer"
-                  className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition-all duration-300 group">
+                  className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition-all duration-300">
                   <Github size={20} />
                 </a>
                 <a href="https://linkedin.com/in/shivangrajshivhare" target="_blank" rel="noopener noreferrer"
-                  className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition-all duration-300 group">
+                  className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition-all duration-300">
                   <Linkedin size={20} />
                 </a>
                 <a href="https://leetcode.com/u/iamshivangshivhare/" target="_blank" rel="noopener noreferrer"
-                  className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition-all duration-300 group">
+                  className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition-all duration-300">
                   <ExternalLink size={20} />
                 </a>
               </div>
             </div>
 
-            {/* Skills Summary */}
             <div className="contact-content">
               <h4 className="text-xl font-semibold mb-4">What I Bring</h4>
               <ul className="space-y-3 text-gray-600">
@@ -173,9 +169,12 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Side: Contact Form */}
+          {/* Contact Form */}
           <div className="contact-content">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-sm space-y-6">
+              <input type="hidden" name="_next" value="https://yourdomain.com/thank-you" />
+              <input type="text" name="_gotcha" style={{ display: 'none' }} />
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input type="text" name="name" required placeholder="Your Name"
                   value={formData.name} onChange={handleInputChange}
@@ -184,9 +183,11 @@ const Contact: React.FC = () => {
                   value={formData.email} onChange={handleInputChange}
                   className="col-span-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all" />
               </div>
+
               <input type="text" name="subject" required placeholder="Subject"
                 value={formData.subject} onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all" />
+
               <textarea name="message" required rows={6} placeholder="Your message..."
                 value={formData.message} onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all" />
@@ -212,7 +213,6 @@ const Contact: React.FC = () => {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="contact-content text-center mt-16 pt-8 border-t border-gray-200">
           <p className="text-gray-600 mb-4">© 2025 Shivang Raj Shivhare. All rights reserved.</p>
           <p className="text-sm text-gray-500">
