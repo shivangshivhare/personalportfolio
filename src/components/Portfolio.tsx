@@ -3,6 +3,11 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, Github, Award } from 'lucide-react';
 
+// ✅ Image imports
+import zaikaImg from '../assets/zaykamap.jpg';
+import trafficImg from '../assets/trafficCS.jpg';
+import techImg from '../assets/techinspire.jpg';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects: React.FC = () => {
@@ -42,48 +47,36 @@ const Projects: React.FC = () => {
 
   const projects = [
     {
-  title: 'ZaikaMap',
-  category: 'Full-Stack Web App',
-  description:
-    'ZaikaMap is a smart and simple restaurant recommender to help users discover the best places to eat nearby. Built for food lovers across India with real-time filtering and Google Maps integration.',
-  image: '../assets/zaykamap.jpg', // Or replace with your custom image
-  technologies: ['Next.js', 'Tailwind CSS', 'Google Maps API', 'Gemini API', 'TypeScript'],
-  link: 'https://zaikamap.vercel.app/',
-  github: 'https://github.com/shivangshivhare/ZaikaMap',
-  featured: true
-}
-  ,
+      title: 'ZaikaMap',
+      category: 'Full-Stack Web App',
+      description:
+        'ZaikaMap is a smart and simple restaurant recommender to help users discover the best places to eat nearby. Built for food lovers across India with real-time filtering and Google Maps integration.',
+      image: zaikaImg,
+      technologies: ['Next.js', 'Tailwind CSS', 'Google Maps API', 'Gemini API', 'TypeScript'],
+      link: 'https://zaikamap.vercel.app/',
+      github: 'https://github.com/shivangshivhare/ZaikaMap',
+      featured: true
+    },
     {
       title: 'Traffic Violation Detection System',
       category: 'Computer Vision',
       description: 'OpenCV-based system for detecting traffic violations in real time with dashboard reports and auto-notification for law enforcement.',
-      image: '../assets/trafficCS.jpg',
+      image: trafficImg,
       technologies: ['Python', 'OpenCV', 'Flask', 'Real-Time Alerts'],
       link: 'https://github.com/shivangshivhare/traffic-violation-control-system',
       github: 'https://github.com/shivangshivhare/traffic-violation-control-system',
       featured: true
     },
-      ,
     {
       title: 'TechInspiree',
       category: 'Knowledge Sharing Platform',
       description: 'AI-driven platform for students to share educational content with plagiarism checks, real-time collaboration, and personalized recommendations.',
-      image: '../assets/techinspire.jpg',
+      image: techImg,
       technologies: ['Next.js', 'MongoDB', 'Express.js', 'Tailwind', 'Node.js'],
       link: 'https://techinspire.vercel.app/',
       github: 'https://github.com/shivangshivhare/techinspiree',
       featured: true
-    },
-    // {
-    //   title: 'Jewellery E-Commerce Website',
-    //   category: 'E-Commerce Platform',
-    //   description: 'Responsive MERN-based jewellery store with secure payments, SEO, admin dashboard, and loyalty integrations.',
-    //   image: 'https://images.pexels.com/photos/538192/pexels-photo-538192.jpeg',
-    //   technologies: ['MERN Stack', 'Stripe', 'Vercel', 'Admin Dashboard', 'SEO'],
-    //   link: '#',
-    //   github: '#',
-    //   featured: true
-    // }
+    }
   ];
 
   const achievements = [
@@ -149,47 +142,6 @@ const Projects: React.FC = () => {
                   {project.title}
                 </h3>
                 <p className="text-gray-300 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded group-hover:bg-gray-700 transition-colors">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Other Projects */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {projects.filter(p => !p.featured).map((project, i) => (
-            <div key={i} className="project-item group relative overflow-hidden rounded-lg bg-gray-900 hover:bg-gray-800 transition-all duration-300">
-              <div className="relative overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-all duration-300"></div>
-                <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {project.github && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer"
-                      className="p-2 bg-white text-black rounded-full hover:bg-gray-200 transition-colors">
-                      <Github size={16} />
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              <div className="p-6">
-                <span className="text-sm text-gray-400 uppercase tracking-wide">{project.category}</span>
-                <h3 className="text-xl font-semibold mt-2 mb-3 group-hover:text-blue-400 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                  {project.description}
-                </p>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, idx) => (
                     <span key={idx} className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded group-hover:bg-gray-700 transition-colors">
