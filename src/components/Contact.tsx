@@ -63,7 +63,7 @@ const Contact: React.FC = () => {
     data.append('_subject', `Portfolio Contact: ${formData.subject}`);
 
     try {
-      const response = await fetch("https://formsubmit.co/el/mazilo", {
+      const response = await fetch("https://formsubmit.co/iamshivangshivhare@gmail.com", {
         method: "POST",
         body: data
       });
