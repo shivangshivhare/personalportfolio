@@ -119,7 +119,7 @@ const Contact: React.FC = () => {
             >
               <input type="hidden" name="_subject" value="Portfolio Contact Submission" />
               <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_next" value="https://cardify.vercel.app/thank-you" />
+{/*               <input type="hidden" name="_next" value="https://cardify.vercel.app/thank-you" /> */}
               <input type="text" name="_honey" style={{ display: 'none' }} />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
