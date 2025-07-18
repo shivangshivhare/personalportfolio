@@ -13,15 +13,12 @@ const Contact: React.FC = () => {
     message: ''
   });
 
-  const [status, setStatus] = useState({
-    submitting: false,
-    submitted: false,
-    error: false
-  });
+  const [status, setStatus] = useState<'idle' | 'submitted'>('idle');
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    gsap.fromTo('.contact-content',
+    gsap.fromTo(
+      '.contact-content',
       { y: 80, opacity: 0 },
       {
         y: 0,
@@ -39,49 +36,7 @@ const Contact: React.FC = () => {
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus({ submitting: true, submitted: false, error: false });
-
-    gsap.to('.submit-btn', {
-      scale: 0.95,
-      duration: 0.1,
-      yoyo: true,
-      repeat: 1
-    });
-
-    const form = e.target as HTMLFormElement;
-    const data = new FormData(form);
-    data.append('_captcha', 'false');
-    data.append('_template', 'table');
-    data.append('_subject', `Portfolio Contact: ${formData.subject}`);
-
-    try {
-      const response = await fetch("https://formsubmit.co/iamshivangshivhare@gmail.com", {
-        method: "POST",
-        body: data
-      });
-
-      if (response.ok) {
-        setStatus({ submitting: false, submitted: true, error: false });
-        setFormData({ name: '', email: '', subject: '', message: '' });
-
-        setTimeout(() => {
-          setStatus({ submitting: false, submitted: false, error: false });
-        }, 5000);
-      } else {
-        throw new Error('Form submission failed');
-      }
-    } catch (error) {
-      setStatus({ submitting: false, submitted: false, error: true });
-      console.error('Error:', error);
-    }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -95,7 +50,7 @@ const Contact: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Contact Info and Socials */}
+          {/* Contact Info */}
           <div className="space-y-8">
             <div className="contact-content">
               <h3 className="text-3xl font-semibold mb-6">Get in Touch</h3>
@@ -131,16 +86,13 @@ const Contact: React.FC = () => {
             <div className="contact-content">
               <h4 className="text-xl font-semibold mb-4">Connect with me</h4>
               <div className="flex space-x-4">
-                <a href="https://github.com/shivangshivhare" target="_blank" rel="noopener noreferrer"
-                  className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition-all duration-300">
+                <a href="https://github.com/shivangshivhare" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition">
                   <Github size={20} />
                 </a>
-                <a href="https://linkedin.com/in/shivangrajshivhare" target="_blank" rel="noopener noreferrer"
-                  className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition-all duration-300">
+                <a href="https://linkedin.com/in/shivangrajshivhare" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition">
                   <Linkedin size={20} />
                 </a>
-                <a href="https://leetcode.com/u/iamshivangshivhare/" target="_blank" rel="noopener noreferrer"
-                  className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition-all duration-300">
+                <a href="https://leetcode.com/u/iamshivangshivhare/" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-200 rounded-lg hover:bg-black hover:text-white transition">
                   <ExternalLink size={20} />
                 </a>
               </div>
@@ -149,64 +101,44 @@ const Contact: React.FC = () => {
             <div className="contact-content">
               <h4 className="text-xl font-semibold mb-4">What I Bring</h4>
               <ul className="space-y-3 text-gray-600">
-                <li className="flex items-start space-x-2">
-                  <span className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Strong foundation in AI, Data Science, and System Design</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></span>
-                  <span>400+ LeetCode problems and 3 major deployed projects</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Freelance experience solving 150+ CS problems (Chegg)</span>
-                </li>
-                <li className="flex items-start space-x-2">
-                  <span className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Leadership in SIH Hackathon and academic research</span>
-                </li>
+                <li className="flex items-start space-x-2"><span className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></span><span>Strong foundation in AI, Data Science, and System Design</span></li>
+                <li className="flex items-start space-x-2"><span className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></span><span>400+ LeetCode problems and 3 major deployed projects</span></li>
+                <li className="flex items-start space-x-2"><span className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></span><span>Freelance experience solving 150+ CS problems (Chegg)</span></li>
+                <li className="flex items-start space-x-2"><span className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></span><span>Leadership in SIH Hackathon and academic research</span></li>
               </ul>
             </div>
           </div>
 
           {/* Contact Form */}
           <div className="contact-content">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-sm space-y-6">
-              <input type="hidden" name="_next" value="https://yourdomain.com/thank-you" />
-              <input type="text" name="_gotcha" style={{ display: 'none' }} />
+            <form
+              action="https://formsubmit.co/iamshivangshivhare@gmail.com"
+              method="POST"
+              onSubmit={() => setStatus('submitted')}
+              className="bg-white p-8 rounded-lg shadow-sm space-y-6"
+            >
+              <input type="hidden" name="_subject" value="Portfolio Contact Submission" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="https://cardify.vercel.app/thank-you" />
+              <input type="text" name="_honey" style={{ display: 'none' }} />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input type="text" name="name" required placeholder="Your Name"
-                  value={formData.name} onChange={handleInputChange}
-                  className="col-span-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all" />
-                <input type="email" name="email" required placeholder="you@example.com"
-                  value={formData.email} onChange={handleInputChange}
-                  className="col-span-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all" />
+                <input type="text" name="name" required placeholder="Your Name" value={formData.name} onChange={handleInputChange} className="col-span-1 px-4 py-3 border border-gray-300 rounded-lg" />
+                <input type="email" name="email" required placeholder="you@example.com" value={formData.email} onChange={handleInputChange} className="col-span-1 px-4 py-3 border border-gray-300 rounded-lg" />
               </div>
 
-              <input type="text" name="subject" required placeholder="Subject"
-                value={formData.subject} onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all" />
+              <input type="text" name="subject" required placeholder="Subject" value={formData.subject} onChange={handleInputChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg" />
 
-              <textarea name="message" required rows={6} placeholder="Your message..."
-                value={formData.message} onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black transition-all" />
+              <textarea name="message" rows={6} required placeholder="Your message..." value={formData.message} onChange={handleInputChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg" />
 
-              <button type="submit" disabled={status.submitting}
-                className={`submit-btn w-full text-white px-6 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 ${status.submitting ? 'bg-gray-500 cursor-not-allowed' : 'bg-black hover:bg-gray-800'}`}>
+              <button type="submit" className="submit-btn w-full text-white px-6 py-4 rounded-lg font-medium bg-black hover:bg-gray-800 flex items-center justify-center space-x-2 transition-all duration-300">
                 <Send size={20} />
-                <span>{status.submitting ? 'Sending...' : 'Send Message'}</span>
+                <span>Send Message</span>
               </button>
 
-              {status.submitted && (
+              {status === 'submitted' && (
                 <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
                   <p className="font-medium">Thank you! Your message has been sent.</p>
-                </div>
-              )}
-
-              {status.error && (
-                <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                  <p className="font-medium">Something went wrong. Please try again later.</p>
                 </div>
               )}
             </form>
