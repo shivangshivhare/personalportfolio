@@ -229,10 +229,22 @@ const Hero: React.FC = () => {
         {/* Left Content */}
         <div className="space-y-8">
           <div className="text-3xl md:text-4xl lg:text-6xl font-black leading-tight space-y-2">
-      <div>
-  {'SHIVANG RAJ SHIVHARE'.split('').map((letter, index) => (
-    <span key={`name-${index}`} className="hero-letter inline-block">
-      {letter === ' '? '\u00A0' : letter}
+      <div className="text-hero font-bold text-[3.5rem] leading-[1.2]">
+  {'SHIVANG'.split('').map((letter, index) => (
+    <span key={`shivang-${index}`} className="hero-letter inline-block">
+      {letter}
+    </span>
+  ))}
+  <br />
+  {'RAJ'.split('').map((letter, index) => (
+    <span key={`raj-${index}`} className="hero-letter inline-block">
+      {letter}
+    </span>
+  ))}
+  <br />
+  {'SHIVHARE'.split('').map((letter, index) => (
+    <span key={`shivhare-${index}`} className="hero-letter inline-block">
+      {letter}
     </span>
   ))}
 </div>
