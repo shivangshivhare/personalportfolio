@@ -7,7 +7,7 @@ import { ExternalLink, Github, Award } from 'lucide-react';
 import zaikaImg from '../assets/zaykamap.jpg';
 import trafficImg from '../assets/trafficCS.jpg';
 import techImg from '../assets/techinspire.jpg';
-
+import cadifyImg from '../assets/cadify.jpg'
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects: React.FC = () => {
@@ -66,7 +66,16 @@ const Projects: React.FC = () => {
       link: 'https://github.com/shivangshivhare/traffic-violation-control-system',
       github: 'https://github.com/shivangshivhare/traffic-violation-control-system',
       featured: true
-    },
+    },{
+  title: 'Find Credit Cards with AI',
+  category: 'Finance Recommendation Tool',
+  description: 'AI-powered platform that helps users discover the most suitable credit cards based on their spending patterns and financial behavior, with intelligent filtering and personalized suggestions.',
+  image: cadifyImg, 
+  technologies: ['Next.js', 'OpenAI API', 'Tailwind', 'TypeScript', 'Node.js'],
+  link: 'https://find-credit-cards-with-ai.vercel.app/',
+  github: 'https://github.com/shivangshivhare/Find-credit-cards-with-AI',
+  featured: true
+},
     {
       title: 'TechInspiree',
       category: 'Knowledge Sharing Platform',
