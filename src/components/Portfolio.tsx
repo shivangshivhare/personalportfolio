@@ -1,20 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, Github, Award } from 'lucide-react';
 
-// ✅ Image imports
 import zaikaImg from '../assets/zaykamap.jpg';
 import trafficImg from '../assets/trafficCS.jpg';
 import techImg from '../assets/techinspire.jpg';
-import cadifyImg from '../assets/cadify.jpg'
+import cadifyImg from '../assets/cadify.jpg';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const extraProjectsRef = useRef<HTMLDivElement>(null);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    gsap.fromTo('.project-item',
+    gsap.fromTo(
+      '.project-item',
       { y: 100, opacity: 0 },
       {
         y: 0,
@@ -25,12 +28,13 @@ const Projects: React.FC = () => {
           trigger: sectionRef.current,
           start: 'top 80%',
           end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
-        }
+          toggleActions: 'play none none reverse',
+        },
       }
     );
 
-    gsap.fromTo('.projects-title',
+    gsap.fromTo(
+      '.projects-title',
       { y: 50, opacity: 0 },
       {
         y: 0,
@@ -39,8 +43,8 @@ const Projects: React.FC = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 90%',
-          toggleActions: 'play none none reverse'
-        }
+          toggleActions: 'play none none reverse',
+        },
       }
     );
   }, []);
@@ -55,55 +59,64 @@ const Projects: React.FC = () => {
       technologies: ['Next.js', 'Tailwind CSS', 'Google Maps API', 'Gemini API', 'TypeScript'],
       link: 'https://zaikamap.vercel.app/',
       github: 'https://github.com/shivangshivhare/ZaikaMap',
-      featured: true
+      featured: true,
     },
     {
       title: 'Traffic Violation Detection System',
       category: 'Computer Vision',
-      description: 'OpenCV-based system for detecting traffic violations in real time with dashboard reports and auto-notification for law enforcement.',
+      description:
+        'OpenCV-based system for detecting traffic violations in real time with dashboard reports and auto-notification for law enforcement.',
       image: trafficImg,
       technologies: ['Python', 'OpenCV', 'Flask', 'Real-Time Alerts'],
       link: 'https://github.com/shivangshivhare/traffic-violation-control-system',
       github: 'https://github.com/shivangshivhare/traffic-violation-control-system',
-      featured: true
-    },{
-  title: 'Find Credit Cards with AI',
-  category: 'Finance Recommendation Tool',
-  description: 'AI-powered platform that helps users discover the most suitable credit cards based on their spending patterns and financial behavior, with intelligent filtering and personalized suggestions.',
-  image: cadifyImg, 
-  technologies: ['Next.js', 'OpenAI API', 'Tailwind', 'TypeScript', 'Node.js'],
-  link: 'https://find-credit-cards-with-ai.vercel.app/',
-  github: 'https://github.com/shivangshivhare/Find-credit-cards-with-AI',
-  featured: true
-},
+      featured: true,
+    },
+    {
+      title: 'Find Credit Cards with AI',
+      category: 'Finance Recommendation Tool',
+      description:
+        'AI-powered platform that helps users discover the most suitable credit cards based on their spending patterns and financial behavior, with intelligent filtering and personalized suggestions.',
+      image: cadifyImg,
+      technologies: ['Next.js', 'OpenAI API', 'Tailwind', 'TypeScript', 'Node.js'],
+      link: 'https://find-credit-cards-with-ai.vercel.app/',
+      github: 'https://github.com/shivangshivhare/Find-credit-cards-with-AI',
+      featured: true,
+    },
     {
       title: 'TechInspiree',
       category: 'Knowledge Sharing Platform',
-      description: 'AI-driven platform for students to share educational content with plagiarism checks, real-time collaboration, and personalized recommendations.',
+      description:
+        'AI-driven platform for students to share educational content with plagiarism checks, real-time collaboration, and personalized recommendations.',
       image: techImg,
       technologies: ['Next.js', 'MongoDB', 'Express.js', 'Tailwind', 'Node.js'],
       link: 'https://techinspire.vercel.app/',
       github: 'https://github.com/shivangshivhare/techinspiree',
-      featured: true
-    }
+      featured: true,
+    },
+    // Add 5th+ project here to trigger See More
+    
   ];
+
+  const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
+  const extraProjects = projects.filter((p) => p.featured).slice(4);
 
   const achievements = [
     {
       title: 'Smart India Hackathon 2023',
       description: 'Team Lead — Delivered complete solution ahead of schedule',
-      icon: <Award className="text-yellow-400" size={24} />
+      icon: <Award className="text-yellow-400" size={24} />,
     },
     {
       title: 'Chegg Subject Expert',
       description: 'Solved 150+ advanced CS queries with 95% accuracy',
-      icon: <Award className="text-green-400" size={24} />
+      icon: <Award className="text-green-400" size={24} />,
     },
     {
       title: 'LeetCode Problem Solver',
       description: 'Solved 400+ coding problems consistently',
-      icon: <Award className="text-blue-400" size={24} />
-    }
+      icon: <Award className="text-blue-400" size={24} />,
+    },
   ];
 
   return (
@@ -111,57 +124,55 @@ const Projects: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="projects-title text-5xl md:text-6xl font-bold mb-6">
-            Featured Projects
-          </h2>
+          <h2 className="projects-title text-5xl md:text-6xl font-bold mb-6">Featured Projects</h2>
           <p className="projects-title text-xl text-gray-300 max-w-3xl mx-auto">
             Full-stack platforms, AI tools, and scalable web systems built with performance in mind.
           </p>
         </div>
 
-        {/* Featured Projects */}
+        {/* Project Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {projects.filter(p => p.featured).map((project, i) => (
+          {featuredProjects.map((project, i) => (
             <div key={i} className="project-item group relative overflow-hidden rounded-lg bg-gray-900 hover:bg-gray-800 transition-all duration-300">
-              <div className="relative overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-all duration-300"></div>
-
-                <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {project.link && project.link !== '#' && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer"
-                      className="p-2 bg-white text-black rounded-full hover:bg-gray-200 transition-colors">
-                      <ExternalLink size={16} />
-                    </a>
-                  )}
-                  <a href={project.github} target="_blank" rel="noopener noreferrer"
-                    className="p-2 bg-white text-black rounded-full hover:bg-gray-200 transition-colors">
-                    <Github size={16} />
-                  </a>
-                </div>
-              </div>
-
-              <div className="p-6">
-                <span className="text-sm text-gray-400 uppercase tracking-wide">{project.category}</span>
-                <h3 className="text-2xl font-semibold mt-2 mb-3 group-hover:text-blue-400 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-gray-300 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded group-hover:bg-gray-700 transition-colors">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <ProjectCard project={project} />
             </div>
           ))}
+
+          {/* Extra Projects */}
+          {showAll && (
+            <div ref={extraProjectsRef} className="col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {extraProjects.map((project, i) => (
+                <div key={`extra-${i}`} className="project-item group relative overflow-hidden rounded-lg bg-gray-900 hover:bg-gray-800 transition-all duration-300">
+                  <ProjectCard project={project} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+
+        {/* Toggle Button */}
+        {extraProjects.length > 0 && (
+          <div className="text-center mb-20">
+            <button
+              onClick={() => {
+                setShowAll((prev) => {
+                  const newState = !prev;
+                  setTimeout(() => {
+                    if (newState && extraProjectsRef.current) {
+                      extraProjectsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else if (!newState && sectionRef.current) {
+                      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }, 100);
+                  return newState;
+                });
+              }}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition-all duration-300"
+            >
+              {showAll ? 'See Less Projects' : 'See More Projects'}
+            </button>
+          </div>
+        )}
 
         {/* Achievements */}
         <div className="bg-gray-900 rounded-lg p-8">
@@ -193,5 +204,56 @@ const Projects: React.FC = () => {
     </section>
   );
 };
+
+// Reusable Project Card Component
+const ProjectCard = ({ project }: { project: any }) => (
+  <>
+    <div className="relative overflow-hidden">
+      <img
+        src={project.image}
+        alt={project.title}
+        className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-all duration-300"></div>
+      <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 bg-white text-black rounded-full hover:bg-gray-200 transition-colors"
+          >
+            <ExternalLink size={16} />
+          </a>
+        )}
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-2 bg-white text-black rounded-full hover:bg-gray-200 transition-colors"
+        >
+          <Github size={16} />
+        </a>
+      </div>
+    </div>
+    <div className="p-6">
+      <span className="text-sm text-gray-400 uppercase tracking-wide">{project.category}</span>
+      <h3 className="text-2xl font-semibold mt-2 mb-3 group-hover:text-blue-400 transition-colors">
+        {project.title}
+      </h3>
+      <p className="text-gray-300 mb-4">{project.description}</p>
+      <div className="flex flex-wrap gap-2">
+        {project.technologies.map((tech: string, idx: number) => (
+          <span
+            key={idx}
+            className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded group-hover:bg-gray-700 transition-colors"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+  </>
+);
 
 export default Projects;
